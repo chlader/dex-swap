@@ -1,58 +1,98 @@
-import { Box, Button, Center, Flex, FormControl, FormLabel, Input, NumberInput, NumberInputField, Select, Spacer } from "@chakra-ui/react";
-import React, { useEffect } from "react";
-import { Token } from "../data/tokens";
+import {
+    Box,
+    Button,
+    Center,
+    Divider,
+    Flex,
+    FormControl,
+    Input,
+    Modal,
+    ModalBody,
+    ModalCloseButton,
+    ModalContent,
+    ModalHeader,
+    ModalOverlay,
+    NumberInput,
+    NumberInputField,
+    Spacer,
+    useDisclosure,
+    Wrap,
+} from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
 import Options from "./Options";
-// import Icon from "react-crypto-icons"
-import { defaultToken } from "../data/tokens";
+import TokenSelect from "./TokenSelect";
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import { CROIcon } from "../assets/Icons";
 
-const Swap = (tokens: Token[]) => {
-    // const [defaultToken, setDefaultToken] = setState({});
+const Swap = ({ user }: any) => {
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
     return (
         <>
             <div>
+
+                <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside">
+                    <ModalOverlay />
+                    <ModalContent>
+                        <ModalHeader>
+                            <Wrap>
+                                <Flex>
+                                    <span>Select a token</span>
+                                    <ModalCloseButton />
+                                </Flex>
+                                <Input borderRadius="lg" mt="5" placeholder="Search name or paste address" size="lg"></Input>
+                                <Box>
+                                    <Button m='1' size="md">ETH</Button>
+                                    <Button m='1' size="md">ETH</Button>
+                                    <Button m='1' size="md">ETH</Button>
+                                    <Button m='1' size="md">ETH</Button>
+                                    <Button m='1' size="md">ETH</Button>
+                                    <Button m='1' size="md">ETH</Button>
+                                </Box>
+                            </Wrap>
+                        </ModalHeader>
+                        <Divider />
+                        <ModalBody p="0" overflow='scroll'>
+                            <Options />
+                        </ModalBody>
+                    </ModalContent>
+                </Modal>
+
                 <Center>
                     <FormControl>
-                        <Box >
-
+                        <Box>
                             <Flex>
                                 <Box>Swap</Box>
                                 <Spacer />
                                 <Box>Settings</Box>
                             </Flex>
 
-                            <Box pt='5' color='#212429'>
+                            <Box pt="5" color="#212429">
                                 <Flex>
-                                    <NumberInput>
+                                    <NumberInput defaultValue={0.00} precision={2}>
                                         <NumberInputField />
                                     </NumberInput>
-                                    <Flex>
-                                        {/* TODO: FIGURE OUT HOW TO GET ICONS */}
-                                        <Button width='25%' rightIcon={<ChevronDownIcon />}>{defaultToken.symbol}</Button>
-                                    </Flex>
+                                    {/* TODO: FIGURE OUT HOW TO GET ICONS */}
+                                    <Button onClick={onOpen} width="150px" rightIcon={<ChevronDownIcon />}>
+                                        ETH
+                                    </Button>
                                 </Flex>
                             </Box>
 
-                            <Box pt='5'>
+                            <Box pt="5">
                                 <Flex>
-                                    <NumberInput>
+                                    <NumberInput defaultValue={0.00} precision={2}>
                                         <NumberInputField />
                                     </NumberInput>
-                                    <Select variant="outline" placeholder="To">
-                                        <option>ETH</option>
-                                        <option>BTC</option>
-                                        <option>CRO</option>
-                                        <option>MATIC</option>
-                                    </Select>
+                                    {/* TODO: FIGURE OUT HOW TO GET ICONS */}
+                                    <Button onClick={onOpen} width="150px" rightIcon={<ChevronDownIcon />}>
+                                        MATIC
+                                    </Button>
                                 </Flex>
                             </Box>
 
-                            <Center pt='5'>
+                            <Center pt="5">
                                 <Button width="100%">Swap</Button>
                             </Center>
-
                         </Box>
                     </FormControl>
                 </Center>
@@ -62,7 +102,3 @@ const Swap = (tokens: Token[]) => {
 };
 
 export default Swap;
-function setState(arg0: {}): [any, any] {
-    throw new Error("Function not implemented.");
-}
-

@@ -3,12 +3,26 @@ import "./App.css";
 import { ChakraProvider, Flex, Grid, GridItem, Spacer } from "@chakra-ui/react";
 import Navbar from "./components/Navbar";
 import Swap from "./components/Swap";
-// import rp from 'request'
-import { mockTokens } from "./data/tokens";
+import * as mockUser from "./data/mockUser.json";
+import { Trade } from "./data/trade";
 
 function App() {
     // console.log(mockTokens)
 
+    const trade: Trade = {
+        userAddress: "0x1234567890",
+        userAmount: null,
+        from: {
+            fromAddress: null,
+            fromPrice: null,
+            fromAmount: null
+        },
+        to: {
+            toAddress: null,
+            toPrice: null,
+            toAmount: null
+        }
+    }
 
     // const rp = require("request-promise");
     // const requestOptions = {
@@ -39,7 +53,7 @@ function App() {
             <Navbar />
             <Flex mt={10}>
                 <Spacer />
-                <Swap {...mockTokens} />
+                <Swap user={mockUser} />
                 <Spacer />
             </Flex>
         </ChakraProvider>
